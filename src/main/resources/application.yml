@@ -1,2 +1,17 @@
 server:
   port: 8082
+
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database: h2
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    sql: debug

@@ -4,6 +4,7 @@ import com.example.demo.gclib.domain.Account;
 import com.example.demo.gclib.domain.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,37 +17,33 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    private final PersonService personService;
+    @Autowired
+    private AccountService self;
 
     @Transactional
     public void save(Account account) {
         log.info("============== accountService save");
 
-        System.out.println("1 " + TransactionSynchronizationManager.getCurrentTransactionName());
-        testWithNew();
-
+        System.out.println("save " + TransactionSynchronizationManager.getCurrentTransactionName());
         accountRepository.save(account);
-
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void testWithNew() {
-        System.out.println("2 : " + TransactionSynchronizationManager.getCurrentTransactionName());
-        System.out.println("test !!!!");
-
-        test();
-    }
 
     @Transactional
-    public void test(){
-        System.out.println("3 " + TransactionSynchronizationManager.getCurrentTransactionName());
-        System.out.println("test");
-
-        throw new RuntimeException("고의 Runtime exception");
+    public void exceptionExe() {
+        System.out.println("exceptionExe " + TransactionSynchronizationManager.getCurrentTransactionName());
+        throw new RuntimeException("고의 exception");
     }
 
+    public void test(){
+        System.out.println("test " + TransactionSynchronizationManager.getCurrentTransactionName());
 
-    public String getHelloMessage(){
-        return "hello";
+        self.save(Account.builder()
+                .username("user")
+                .password("1234")
+                .build());
+
+        self.exceptionExe();
+
     }
 }
