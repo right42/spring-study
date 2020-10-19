@@ -82,11 +82,17 @@
         </dependency>
 
         <dependency>
+            <groupId>com.squareup</groupId>
+            <artifactId>javapoet</artifactId>
+            <version>1.13.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>me.right42</groupId>
             <artifactId>annotation-processor</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/external-lib/annotation-processor-1.0-SNAPSHOT.jar</systemPath>
+            <systemPath>${basedir}/src/main/resources/external-lib/annotation-processor-1.0.jar</systemPath>
         </dependency>
 
     </dependencies>
