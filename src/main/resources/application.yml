@@ -15,3 +15,6 @@ spring:
 logging:
   level:
     sql: debug
+
+mail:
+  host: test
